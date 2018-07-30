@@ -76,8 +76,8 @@ exec(`git commit -m 'update' `, err => {
 
 //  git push && git push --tags
 const execPush = exec('git push && git push --tags');
-console.log(execPush.stderr)
-if (80, execPush.stderr) {
+console.log(80, execPush.stderr)
+if (execPush.stderr) {
     exec('git config --global credential.helper manager');
     exec('git push && git push --tags');
 }
