@@ -75,12 +75,12 @@ exec(`git commit -m 'update' `, err => {
 
 
 //  git push && git push --tags
-try {
-    exec('git push && git push --tags');
-} catch (err) {
+const execPush = exec('git push && git push --tags');
+if (execPush.stderr) {
     exec('git config –global credential.helper manager');
     exec('git push && git push --tags');
 }
+
 
 // cnpm sync @cjfed/cjfec
 // exec('cnpm sync @cjfed/cjfec')
