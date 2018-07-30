@@ -67,7 +67,9 @@ if (isNpmrcCommit) {
     commitId = result.stdout;
 }
 console.log(commitId)
-exec(`git checkout ${commitId} ./.npmrc`, '恢复.npmrc文件')
+
+
+exec(`git checkout ${commitId} .npmrc`)
 
 
 //  git push && git push --tags
