@@ -24,7 +24,7 @@ shell.cd(root);
 // }
 
 // .npmrc添加//registry.npmjs.org/:_authToken=${NPM_TOKEN}
-fs.writeFileSync('.npmrc', `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
+fs.writeFileSync(path.join(root, '.npmrc'), `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
 
 const exec = (command, maybeDescription, maybeErrFn) => {
     let [description, errFn] = [command, () => {process.exit(1)}];
