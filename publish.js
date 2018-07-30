@@ -52,17 +52,18 @@ exec('npm version patch', err => {
 })
 
 // npm publish
-exec('npm publish ')
+exec('npm publish ');
 
 // 恢复.npmrc文件
 if (isNpmrcCommit) {
-    exec('git reset HEAD^ --hard');    
+    exec('git reset HEAD^ --hard');
+    console.log('reset')
 } 
 exec('git checkout .npmrc', '恢复.npmrc文件')
 
 
 //  git push && git push --tags
-exec('git push && git push --tags');
+// exec('git push && git push --tags');
 
 // cnpm sync @cjfed/cjfec
 // exec('cnpm sync @cjfed/cjfec')
