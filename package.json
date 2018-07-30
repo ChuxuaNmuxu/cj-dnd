@@ -1,6 +1,6 @@
 {
 	"name": "@ssm1982/cj-react-dnd",
-	"version": "1.0.22",
+	"version": "1.0.23",
 	"description": "",
 	"main": "dist/index.js",
 	"scripts": {
