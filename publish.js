@@ -66,6 +66,7 @@ if (isNpmrcCommit) {
     const result = shell.exec('git rev-parse HEAD~1')
     commitId = result.stdout;
 }
+console.log(commitId)
 exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc文件')
 
 
