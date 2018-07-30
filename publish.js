@@ -61,19 +61,18 @@ exec('npm publish ');
 let commitId = '';
 if (isNpmrcCommit) {
     const result = shell.exec('git rev-parse HEAD~2')
-    commitId = result.stdout;
+    commitId = result;
 } else {
     const result = shell.exec('git rev-parse HEAD~1')
-    commitId = result.stdout;
+    commitId = result;
 }
-console.log(commitId)
+console.log(toString(commitId))
 
-
-exec(`git checkout ${commitId} .npmrc`)
+// exec(`git checkout ${commitId} .npmrc`)
 
 
 //  git push && git push --tags
-exec('git push && git push --tags');
+// exec('git push && git push --tags');
 
 // cnpm sync @cjfed/cjfec
 // exec('cnpm sync @cjfed/cjfec')
