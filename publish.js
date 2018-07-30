@@ -34,9 +34,12 @@ const exec = (command, maybeDescription, maybeErrFn) => {
     if (isFunction(maybeErrFn)) errFn = maybeErrFn;
 
     console.log(`-------- ${description} --------`)
-    shell.exec(command);
+
+    const result = shell.exec(command);
+
     const err = shell.error()
     if (err) errFn(err);
+    return result;
 }
 
 // npm version patch
@@ -55,11 +58,15 @@ exec('npm version patch', err => {
 exec('npm publish ');
 
 // 恢复.npmrc文件
+let commitId = '';
 if (isNpmrcCommit) {
-    exec('git reset HEAD^ --hard');
-    console.log('reset')
-} 
-exec('git checkout .npmrc', '恢复.npmrc文件')
+    const result = shell.exec('git rev-parse HEAD~2')
+    commitId = result.stdout;
+} else {
+    const result = shell.exec('git rev-parse HEAD~1')
+    commitId = result.stdout;
+}
+exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc文件')
 
 
 //  git push && git push --tags
