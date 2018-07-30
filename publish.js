@@ -68,11 +68,10 @@ if (isNpmrcCommit) {
 }
 exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc文件')
 
-
 //  git push && git push --tags
-// exec('git push && git push --tags');
+exec('git push && git push --tags');
 
 // cnpm sync @cjfed/cjfec
-// exec('cnpm sync @cjfed/cjfec')
+exec('cnpm sync @cjfed/cjfec')
 
 shell.echo('-------- success --------')
