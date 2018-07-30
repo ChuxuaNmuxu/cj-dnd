@@ -5,7 +5,7 @@ const shell = require('shelljs');
 const path = require('path');
 const fs = require('fs');
 
-const root = path.join(__dirname, '../');
+const root = path.join(__dirname, './');
 
 shell.cd(root);
 
@@ -22,7 +22,7 @@ shell.cd(root);
 // }
 
 // .npmrc添加//registry.npmjs.org/:_authToken=${NPM_TOKEN}
-fs.writeFileSync('.npmrc', '//registry.npmjs.org/:_authToken=${NPM_TOKEN}');
+fs.writeFileSync('.npmrc', `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
 
 // npm version patch
 console.log('npm version patch')
