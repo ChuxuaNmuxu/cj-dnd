@@ -69,7 +69,9 @@ if (isNpmrcCommit) {
 
 exec(`git checkout ${commitId.replace('\n', '')} .npmrc`, '恢复.npmrc')
 exec('git add .');
-exec(`git commit -m 'update' `);
+exec(`git commit -m 'update' `, err => {
+    if (!/nothing to commit/.test(err)) process.exit(1)
+});
 
 
 //  git push && git push --tags
