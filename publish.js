@@ -7,15 +7,15 @@ const fs = require('fs');
 const isString = require('lodash/isString');
 const isFunction = require('lodash/isFunction');
 
-const root = path.join(__dirname, './');
+const root = path.join(__dirname, '../');
 
 shell.cd(root);
 
 // console.log('执行compile');
-// shell.exec('npm run compile');
-// if (shell.error()) {
-//     process.exit(1)
-// }
+shell.exec('npm run compile');
+if (shell.error()) {
+    process.exit(1)
+}
 
 // console.log('执行build');
 // shell.exec('npm run build');
