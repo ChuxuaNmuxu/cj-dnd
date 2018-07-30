@@ -66,7 +66,7 @@ if (isNpmrcCommit) {
     const result = shell.exec('git rev-parse HEAD~1')
     commitId = result;
 }
-console.log(toString(commitId))
+console.log(commitId)
 
 // exec(`git checkout ${commitId} .npmrc`)
 
