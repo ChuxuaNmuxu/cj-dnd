@@ -67,14 +67,11 @@ if (isNpmrcCommit) {
     commitId = result.stdout;
 }
 
-const a = commitId.replace('\n', '');
-console.log(`git checkout ${a} .npmrc`)
-
-// exec(`git checkout ${commitId} .npmrc`)
+exec(`git checkout ${commitId.replace('\n', '')} .npmrc`, '恢复.npmrc')
 
 
 //  git push && git push --tags
-// exec('git push && git push --tags');
+exec('git push && git push --tags');
 
 // cnpm sync @cjfed/cjfec
 // exec('cnpm sync @cjfed/cjfec')
