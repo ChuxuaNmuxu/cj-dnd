@@ -61,12 +61,14 @@ exec('npm publish ');
 let commitId = '';
 if (isNpmrcCommit) {
     const result = shell.exec('git rev-parse HEAD~2')
-    commitId = result;
+    commitId = result.stdout;
 } else {
     const result = shell.exec('git rev-parse HEAD~1')
-    commitId = result;
+    commitId = result.stdout;
 }
-console.log(commitId)
+
+const a = commitId.replace('\n', '');
+console.log(`git checkout ${a} .npmrc`)
 
 // exec(`git checkout ${commitId} .npmrc`)
 
