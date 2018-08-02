@@ -49,8 +49,8 @@ const exec = (command, maybeDescription, maybeErrFn) => {
 fs.writeFileSync(path.resolve(root, '.npmrc'), `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
 
 // commit .npmrc
-exec('git add .');
-exec(`git commit -m 'update' `);
+// exec('git add .');
+// exec(`git commit -m 'update' `);
 
 // npm version patch
 console.log(56, program.patch)
