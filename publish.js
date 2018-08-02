@@ -54,10 +54,8 @@ exec(`git commit -m 'update' `);
 
 // npm version patch
 console.log(56, program.patch)
-if (isString(program.patch)) {
-    exec(`npm version ${program.patch}`);
-}
-exec('npm version patch');
+const version = isString(program.patch) ? program.patch : 'patch';
+exec(`npm version ${version}`);
 
 // console.log('执行compile');
 // exec('npm run compile');
