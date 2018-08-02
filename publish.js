@@ -55,7 +55,7 @@ exec(`git commit -m 'update' `);
 // npm version patch
 console.log(56, program.patch)
 if (isString(program.patch)) {
-    exec(`npm version patch ${program.patch}`);
+    exec(`npm version ${program.patch}`);
 }
 exec('npm version patch');
 
