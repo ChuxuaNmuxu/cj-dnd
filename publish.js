@@ -80,9 +80,7 @@ commitId = result.stdout.replace('\n', '');
 
 exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
 exec('git add .');
-exec(`git commit -m 'update' `, err => {
-    if (!/nothing to commit/.test(err)) process.exit(1)
-});
+exec(`git commit -m 'update'`);
 
 //  git push && git push --tags
 exec('git push')
