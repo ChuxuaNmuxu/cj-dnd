@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const isString = require('lodash/isString');
 const isFunction = require('lodash/isFunction');
+const noop = require('lodash/noop');
 
 program
     .version('0.0.1')
@@ -80,9 +81,7 @@ commitId = result.stdout.replace('\n', '');
 
 exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
 exec('git add .');
-exec(`git commit -m 'update' `, err => {
-    if (!/nothing to commit/.test(err)) exec('git push')
-});
+exec(`git commit -m 'update' `, noop);
 
 //  git push && git push --tags
 exec('git push')
