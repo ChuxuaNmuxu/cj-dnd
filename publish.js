@@ -2,10 +2,16 @@
 // TODO：编译前清空目标目录
 
 const shell = require('shelljs');
+const program = require('commander');
 const path = require('path');
 const fs = require('fs');
 const isString = require('lodash/isString');
 const isFunction = require('lodash/isFunction');
+
+program
+    .version('0.0.1')
+    .option('-p --patch [value]', 'npm package patch version')
+    .parse(process.argv)
 
 const root = path.join(__dirname, './');
 
@@ -23,11 +29,8 @@ shell.cd(root);
 //     process.exit(1)
 // }
 
-// .npmrc添加//registry.npmjs.org/:_authToken=${NPM_TOKEN}
-fs.writeFileSync(path.join(root, '.npmrc'), `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
-
 const exec = (command, maybeDescription, maybeErrFn) => {
-    let [description, errFn] = [command, () => {process.exit(1)}];
+    let [description, errFn] = [command, () => { process.exit(1) }];
 
     if (isString(maybeDescription)) description = maybeDescription;
     if (isFunction(maybeDescription)) errFn = maybeDescription;
@@ -42,41 +45,40 @@ const exec = (command, maybeDescription, maybeErrFn) => {
     return result;
 }
 
+// .npmrc添加//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+fs.writeFileSync(path.resolve(root, '.npmrc'), `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
+
+// commit .npmrc
+exec('git add .');
+exec(`git commit -m 'update' `);
+
 // npm version patch
-let isNpmrcCommit = false;
-exec('npm version patch', err => {
-    if (/Git working directory not clean/.test(err)) {
-        // commit .npmrc
-        exec('git add .');
-        exec(`git commit -m 'update' `);
-        exec('npm version patch');
-        isNpmrcCommit = true;
-    }
-})
+console.log(56, program.patch)
+if (isString(program.patch)) {
+    exec(`npm version patch ${program.patch}`);
+}
+exec('npm version patch');
+
+// console.log('执行compile');
+exec('npm run compile');
 
 // npm publish
-exec('npm publish ');
+exec('npm publish');
 
 // 恢复.npmrc文件
-let commitId = '';
-if (isNpmrcCommit) {
-    const result = shell.exec('git rev-parse HEAD~2')
-    commitId = result.stdout;
-} else {
-    const result = shell.exec('git rev-parse HEAD~1')
-    commitId = result.stdout;
-}
+const result = shell.exec('git rev-parse HEAD~2')
+const commitId = result.stdout.replace('\n', '');
 
-exec(`git checkout ${commitId.replace('\n', '')} .npmrc`, '恢复.npmrc')
+exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
 exec('git add .');
 exec(`git commit -m 'update' `, err => {
     if (!/nothing to commit/.test(err)) process.exit(1)
 });
 
-
 //  git push && git push --tags
 exec('git push')
-exec('git push --tags', err => {
+exec('git push --tags', () => {
+    // @link https://stackoverflow.com/questions/36309363/windows-git-fatal-taskcanceledexception-encountered
     exec('git config --global credential.helper manager');
     exec('git push --tags');
 });
