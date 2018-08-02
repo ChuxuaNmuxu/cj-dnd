@@ -8,7 +8,7 @@
 		"watch": "tsc -w --preserveWatchOutput",
 		"clean": "rimraf dist",
 		"test": "run-s clean build",
-		"pub": "node publish.js -p 1.1.0"
+		"pub": "node publish.js"
 	},
 	"dependencies": {
 		"@~sunsimiao/cj-dnd-backend": "^1.0.0",
