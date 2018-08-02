@@ -54,34 +54,34 @@ exec(`git commit -m 'update' `);
 
 // npm version patch
 console.log(56, program.patch)
-// if (isString(program.patch)) {
-//     exec(`npm version patch ${program.patch}`);
-// }
-// exec('npm version patch');
+if (isString(program.patch)) {
+    exec(`npm version patch ${program.patch}`);
+}
+exec('npm version patch');
 
-// // console.log('执行compile');
+// console.log('执行compile');
 // exec('npm run compile');
 
-// // npm publish
-// exec('npm publish');
+// npm publish
+exec('npm publish');
 
-// // 恢复.npmrc文件
-// const result = shell.exec('git rev-parse HEAD~2')
-// const commitId = result.stdout.replace('\n', '');
+// 恢复.npmrc文件
+const result = shell.exec('git rev-parse HEAD~2')
+const commitId = result.stdout.replace('\n', '');
 
-// exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
-// exec('git add .');
-// exec(`git commit -m 'update' `, err => {
-//     if (!/nothing to commit/.test(err)) process.exit(1)
-// });
+exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
+exec('git add .');
+exec(`git commit -m 'update' `, err => {
+    if (!/nothing to commit/.test(err)) process.exit(1)
+});
 
-// //  git push && git push --tags
-// exec('git push')
-// exec('git push --tags', () => {
-//     // @link https://stackoverflow.com/questions/36309363/windows-git-fatal-taskcanceledexception-encountered
-//     exec('git config --global credential.helper manager');
-//     exec('git push --tags');
-// });
+//  git push && git push --tags
+exec('git push')
+exec('git push --tags', () => {
+    // @link https://stackoverflow.com/questions/36309363/windows-git-fatal-taskcanceledexception-encountered
+    exec('git config --global credential.helper manager');
+    exec('git push --tags');
+});
 
 // cnpm sync @cjfed/cjfec
 // exec('cnpm sync @cjfed/cjfec')
