@@ -48,14 +48,19 @@ const exec = (command, maybeDescription, maybeErrFn) => {
 // .npmrc添加//registry.npmjs.org/:_authToken=${NPM_TOKEN}
 fs.writeFileSync(path.resolve(root, '.npmrc'), `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`);
 
-// commit .npmrc
-// exec('git add .');
-// exec(`git commit -m 'update' `);
-
 // npm version patch
-console.log(56, program.patch)
+let isNpmrcCommit = false;
 const version = isString(program.patch) ? program.patch : 'patch';
-exec(`npm version ${version}`);
+exec(`npm version ${version}`, err => {
+    if (/Git working directory not clean/.test(err)) {
+        // commit .npmrc
+        exec('git add .');
+        exec(`git commit -m 'update' `);
+
+        exec(`npm version ${version}`);
+        isNpmrcCommit = true;
+    }
+})
 
 // console.log('执行compile');
 // exec('npm run compile');
@@ -64,8 +69,14 @@ exec(`npm version ${version}`);
 exec('npm publish');
 
 // 恢复.npmrc文件
-const result = shell.exec('git rev-parse HEAD~2')
-const commitId = result.stdout.replace('\n', '');
+let commitId = '';
+let result = '';
+if (isNpmrcCommit) {
+    result = shell.exec('git rev-parse HEAD~2')
+} else {
+    result = shell.exec('git rev-parse HEAD~1')
+}
+commitId = result.stdout.replace('\n', '');
 
 exec(`git checkout ${commitId} .npmrc`, '恢复.npmrc')
 exec('git add .');
