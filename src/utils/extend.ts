@@ -5,7 +5,7 @@ const includes = require('lodash/includes')
  * @param {class} target 
  * @param {class} origin 
  */
-export function extend(Target: any, ...mixins: any[]) {
+export function extend(Target: any, ...mixins: any[]) : any {
     class Extend extends Target {}
 
     for (let mixin of mixins) {

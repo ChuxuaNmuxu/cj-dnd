@@ -9,8 +9,8 @@ import { manager } from './DragDropContext'
 // import createResizeMonitor from '../resize/createSourceMonitor'
 // import createRotateMonitor from '../rotate/createSourceMonitor'
 import {SourceMonitor as DragMonitor} from './createSourceMonitor'
-import {ResizeMonitor} from '../resize/createSourceMonitor'
-import {RotateMonitor} from '../rotate/createSourceMonitor'
+import {ResizeMonitor} from './resize/createSourceMonitor'
+import {RotateMonitor} from './rotate/createSourceMonitor'
 import {extend} from './utils/extend'
 const hoistStatics = require('hoist-non-react-statics')
 const isPlainObject = require('lodash/isPlainObject')
