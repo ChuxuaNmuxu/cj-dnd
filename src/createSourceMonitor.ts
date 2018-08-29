@@ -134,6 +134,10 @@ export class SourceMonitor implements DragSourceMonitor {
 	public getDifferenceFromInitialOffset() {
 		return this.internalMonitor.getDifferenceFromInitialOffset()
 	}
+
+	public getEvent () {
+		return this.internalMonitor.getEvent()
+	}
 }
 
 export default function createSourceMonitor<Context>(
