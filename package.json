@@ -11,8 +11,8 @@
 		"pub": "node publish.js"
 	},
 	"dependencies": {
-		"@~sunsimiao/cj-dnd-backend": "^1.0.0",
-		"@~sunsimiao/cj-dnd-core": "^1.0.3",
+		"@~sunsimiao/cj-dnd-backend": "^1.0.10",
+		"@~sunsimiao/cj-dnd-core": "^1.0.4",
 		"hoist-non-react-statics": "^2.5.0",
 		"invariant": "^2.1.0",
 		"lodash": "^4.17.10",
